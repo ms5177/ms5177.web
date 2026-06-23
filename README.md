@@ -494,7 +494,6 @@
             margin-left: 4px;
             opacity: 0.6;
         }
-
         /* 多选员工样式 */
         .staff-select-grid {
             display: grid;
@@ -558,7 +557,6 @@
             font-size: 1rem;
             line-height: 1;
         }
-
         /* 锁定遮罩 */
         .lock-overlay {
             position: fixed;
@@ -621,7 +619,6 @@
             margin-top: 10px;
             display: none;
         }
-
         /* 右下角锁图标 */
         .lock-icon {
             position: fixed;
@@ -642,7 +639,6 @@
             background: var(--accent);
             transform: scale(1.05);
         }
-
         @media (max-width: 768px) {
             .grid-2 {
                 grid-template-columns: 1fr;
@@ -661,7 +657,6 @@
     </style>
 </head>
 <body>
-
     <!-- 登录界面 -->
     <div class="login-overlay" id="loginOverlay">
         <div class="login-box">
@@ -676,7 +671,6 @@
             </div>
         </div>
     </div>
-
     <!-- 锁定遮罩 -->
     <div class="lock-overlay" id="lockOverlay">
         <div class="lock-msg">
@@ -687,10 +681,8 @@
             <div class="error" id="unlockError">密码错误</div>
         </div>
     </div>
-
     <!-- 右下角锁图标 -->
     <div class="lock-icon" id="lockIcon" onclick="showLockDialog()" title="锁定程序（二级密码）">🔒</div>
-
     <!-- 主程序 -->
     <div class="main-app" id="mainApp">
         <div class="container">
@@ -707,14 +699,12 @@
                     <button onclick="signOut()" class="btn-sm btn-danger">离线签退</button>
                 </div>
             </div>
-
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab('staff')">👥 员工管理</button>
                 <button class="tab-btn" onclick="switchTab('games')">🎮 游戏管理</button>
                 <button class="tab-btn" onclick="switchTab('order')">📋 订单录入</button>
                 <button class="tab-btn" onclick="switchTab('dispatch')">🚀 派单看板</button>
             </div>
-
             <!-- 员工管理 -->
             <div id="tab-staff" class="tab-content active">
                 <div class="card admin-only" id="addStaffCard">
@@ -753,7 +743,6 @@
                     <button onclick="addStaff()">✅ 添加员工</button>
                     <div id="staffAddResult" class="result-box"></div>
                 </div>
-
                 <div class="card">
                     <h2>👥 员工列表 <span style="font-size:0.8rem;color:var(--text-secondary);font-weight:normal;">（点击状态切换，仅管理员）</span></h2>
                     <table id="staffTable">
@@ -776,7 +765,6 @@
                     <div class="empty-message" id="noStaffMsg">暂无员工</div>
                 </div>
             </div>
-
             <!-- 游戏管理 -->
             <div id="tab-games" class="tab-content">
                 <div class="card admin-only">
@@ -799,7 +787,6 @@
                     <div id="gameDisplayList"></div>
                 </div>
             </div>
-
             <!-- 订单录入 -->
             <div id="tab-order" class="tab-content">
                 <div class="card admin-only" id="addOrderCard">
@@ -820,7 +807,6 @@
                     <div class="empty-message" id="noOrderMsg">暂无订单</div>
                 </div>
             </div>
-
             <!-- 派单看板 -->
             <div id="tab-dispatch" class="tab-content">
                 <div class="card admin-only" id="manualDispatchCard">
@@ -848,31 +834,25 @@
             </div>
         </div>
     </div>
-
     <script>
         // ========== 全局 ==========
         let currentRole = 'employee';
         const STAFF_KEY = 'club_staff_data_multi';
         const ORDER_KEY = 'club_order_data_multi';
         const GAME_KEY = 'club_game_list_multi';
-
         let staffList = [];
         let orders = [];
         let gameList = [];
         let nextOrderId = 1;
         let tempStaffGameRanks = [];
-
         let sortField = 'name';
         let sortAsc = true;
-
         // 锁定相关
         let isLocked = false;
         const SECONDARY_PASSWORD = 'lock123';
-
         // 派单多选暂存
         let selectedStaffIds = [];
-
-        // ========== 登录 ==========
+        //========== 登录 ==========
         function loginAsEmployee() {
             currentRole = 'employee';
             document.getElementById('loginOverlay').style.display = 'none';
@@ -883,13 +863,11 @@
             applyPermissions();
             updateSignSelect();
         }
-
         function showAdminLogin() {
             document.getElementById('adminLoginArea').style.display = 'block';
             document.getElementById('passwordInput').focus();
             document.getElementById('loginError').style.display = 'none';
         }
-
         function checkAdminPassword() {
             const input = document.getElementById('passwordInput').value;
             const errorDiv = document.getElementById('loginError');
@@ -908,7 +886,6 @@
                 document.getElementById('passwordInput').focus();
             }
         }
-
         // ========== 锁定/解锁 ==========
         function showLockDialog() {
             if (isLocked) {
